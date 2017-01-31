@@ -1,0 +1,281 @@
+﻿<!-- FlatFy Theme - Andrea Galanti /-->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en-ph">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="">
+    <title>@ViewBag.Title: Online Request for Documents</title>
+    <meta name="description" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="~/Content/font-awesome.min.css">-->
+    <!-- Custom Google Web Font -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+
+    <!-- Custom CSS-->
+    <link href="~/Content/general.css" rel="stylesheet">
+    <link href="~/Content/index.css" rel="stylesheet">
+
+    <!-- Owl-Carousel -->
+    <link href="~/Content/custom.min.css" rel="stylesheet">
+    <link href="~/Content/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/animate.min.css" rel="stylesheet">
+
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+
+
+
+    <!--[if IE 9]>
+        <script src="js/PIE_IE9.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="js/PIE_IE678.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+		function agreement(){
+			if (document.getElementById("agreebox").checked == true)
+				document.getElementById("agreeBtn").disabled = false;
+			else
+				document.getElementById("agreeBtn").disabled = true;
+		}
+    </script>
+</head>
+<body id="home">
+    @RenderBody()
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+
+    <!-- FullScreen -->
+    <div class="intro-header">
+        <div class="col-xs-12 text-center abcen1">
+            <img src="~/Content/res/logo.png" class="center-block" style="width: 200px;" />
+            <h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Online Request for Documents</h3>
+            <h4 class="h3_home wow fadeIn" data-wow-delay="0.6s">Office of the University Registrar</h4>
+        </div>
+        <!-- /.container -->
+        <div class="col-xs-12 text-center abcen wow fadeIn">
+            <div class="button_down ">
+                <a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="#reminders"> <img class="img_scroll" src="~/Content/img/icon/circle.png" alt=""> </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NavBar-->
+    <nav class="navbar-default" role="navigation" style="height: 30px; background-color: #00703c;">
+        <div class="container">
+            <div class="navbar-header" style="height:60px;">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+                <a class="navbar-brand brandText" href="#home" style="font-size: 20px; padding-top: 20px;">De La Salle University - Manila</a>
+                <a class="navbar-brand brandLogo" href="#home" style="padding-top: 0px; margin-left: 15px;"><img src="~/Content/res/logo.png" class="center-block brandLogo" style="width: 50px;" /> <span class="respText">De La Salle University</span></a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li class="menuItem"><a href="#reminders" class="menuNavText" style="font-weight: 500; height: 60px;  padding-top: 20px;">Reminders</a></li>
+                    <li class="menuItem"><a href="#contact" class="menuNavText" style="font-weight: 500; height: 60px;  padding-top: 20px;">Contact Us</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Reminders -->
+    <div id="reminders" class="content-section-b" style="border-top: 0; padding-top: 75px;">
+        <div class="container">
+            <div class="col-md-6 col-md-offset-3 text-center wrap_title">
+                <h2 class="reminderText">REMINDERS</h2>
+                <p class="lead" style="margin-top:0">Dont' forget.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 wow fadeInDown text-center">
+                    <img class="rotate" src="~/Content/img/icon/refund.png" style="border-radius: 50%;" height="100" alt="Generic placeholder image">
+                    <h3 class="remTitle">Non-refundable Payments</h3>
+                    <p class="lead" style="font-size: 18px;">This is an automated system and all transactions done here are considered non-refundable.</p>
+                </div><!-- /.col-lg-4 -->
+
+                <div class="col-sm-4 wow fadeInDown text-center">
+                    <img class="rotate" src="~/Content/img/icon/transcancel.png" style="border-radius: 50%;" height="100" alt="Generic placeholder image">
+                    <h3 class="remTitle">No Cancellations</h3>
+                    <p class="lead" style="font-size: 18px;">All transactions and orders that have been successfully placed will not be cancelled.</p>
+                </div><!-- /.col-lg-4 -->
+
+                <div class="col-sm-4 wow fadeInDown text-center">
+                    <img class="rotate" src="~/Content/img/icon/map.png" style="border-radius: 50%;" height="100" alt="Generic placeholder image">
+                    <h3 class="remTitle">Exclusively for DLSU-M</h3>
+                    <p class="lead" style="font-size: 18px;">Only for those who have attended DLSU-M and all extensions of DLSU-M e.g. DLSU BGC, DLSU STC.</p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+            <br><br>
+            <div class="mockup-content">
+                <div class="morph-button wow pulse text-center">
+                    <button type="button" data-toggle="modal" data-target="#myModal" style="background-color: #00703c; font-weight: 500; text-transform: none;" class="btn btn-primary startBtn"><span>Start Requesting for Documents</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="content-section-a">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-md-offset-3 text-center wrap_title">
+                    <h2 style="font-weight: 500;">Contact Us</h2>
+                    <p class="lead" style="margin-top:0">Office of the University Registrar</p>
+                </div>
+
+                <hr class="featurette-divider hidden-lg">
+                <center>
+                    <div class="col-md-5 col-md-push-3 address">
+                        <address>
+                            <h3>Office Location</h3>
+                            <p class="lead" style="color: #3d3d38;">
+                                2nd Floor Henry Sy Sr. Hall<br>
+                                2401 Taft Avenue<br>
+                                1004 Manila, Philippines
+                            </p>
+                        </address>
+
+                        <address>
+                            <p class="lead" style="color: #3d3d38;">
+                                Tel. Nos. : (632) 523-4333 (direct line) <br>
+                                (632) 524-4611 (extension 245) <br>
+                                Fax No.: (632) 523-4152
+                            </p>
+                        </address>
+
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact" style="height: 300px;">
+        <div class="container" style="height: 300px;">
+            <div class="row">
+                <div class="col-md-7 leftfooter">
+                    <div style="background-color: #00703c; height: 300px;">
+                        <br>
+                        <h4 style="color: white; margin-left: 40px; margin-top: 55px; font-weight: 500;">Online Request for Documents</h4>
+                        <ul>
+                            <li>Reminders</li>
+                            <li>Contact Us</li>
+                        </ul>
+                        <p style="margin-left: 40px;">© 2016 Samson Solutions </p>
+                    </div>
+                </div>
+                <div class="col-md-4 contactus" style="margin-left: 75px; margin-bottom: 20px;">
+                    <h2 style="font-size: 24px; text-align: center; margin-top: 45px; font-weight: 500;">Contact Us</h2>
+                    <p style="text-align: center; color: #3d3d38;">Office of the Registrar</p>
+
+                    <h2 style="margin-top: 20px;font-size: 16px; text-align: center; font-weight: 500;">Office Location</h2>
+                    <p style="text-align: center; color: #3d3d38;">
+                        2nd Floor Henry Sy Sr. Hall<br>
+                        2401 Taft Avenue<br>
+                        1004 Manila, Philippines
+                    </p>
+
+                    <p style="text-align: center; color: #3d3d38;">
+                        Tel. Nos. : (632) 523-4333 (direct line) <br>
+                        (632) 524-4611 (extension 245) <br>
+                        Fax No.: (632) 523-4152
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel">
+                        Policies and Procedures
+                    </h4>
+                </div>
+
+                <div class="modal-body" style="padding-bottom: 0%; font-family: Lato;">
+                    <p class="modalTxt">1. &nbsp This Online Request for Documents consists of 5 steps, which can be completed in approximately 10 minutes.</p>
+                    <p class="modalTxt">2. &nbsp The processing period indicated herein (whether regular or express) is different and distinct from the delivery period which is dependent on the location you have specified.</p>
+                    <p class="modalTxt">3. &nbsp This Online Request for Documents includes an online payment facility using your international credit card. Accepted credit cards are <b><u>Visa, Mastercard, JCB and American Express</u></b>. The Request is deemed submitted to the Office of the University Registrar and valid for processing upon approval of the credit card payment.</p>
+                    <p class="modalTxt">4. &nbsp Because of the automated nature of this online request for documents and payment, <b><u>no request for cancellation, substitution, refund</u></b> and the like may be entertained.</p>
+                    <p class="modalTxt">5. &nbsp The processing of request for documents carries with it the responsibility of securing clearances from certain offices / units in the university. If, for any reason, your name is in any of these lists, we regret that we cannot process your request and we will inform you accordingly.</p>
+                    <p class="modalTxt">6. &nbsp Unauthorized request is punishable by law.</p>
+                    <p class="modalTxt">7. &nbsp Please note that this service only ships to <b><u>certain countries</u></b>. Go <a href="delivery.html" target="_blank"><u>here</u></a> to view the full list.</p>
+                    <p class="modalTxt">8. &nbsp For questions or follow-up please e-mail <b><u>registrar@dlsu.edu.ph</u></b></p>
+                    <div class="line-separator"></div>
+
+                    <div style="color: #3d3d38; margin-left: 15px;">
+                        <label><input type="checkbox" id="agreebox" value="false" onclick="agreement()" unchecked>&nbsp <b>I have read and understood the policies and procedures regarding this facility.</b></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+                    <input type="button" class="btn btn-primary" id="agreeBtn" style="background-color: #00703c" value="Proceed" disabled onclick="location.href='@Url.Action("login", "Account")'" />
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+
+    </div><!-- /.modal -->
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/html5shiv.js"></script>
+    <script src="~/Scripts/owl.carousel.js"></script>
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.min.js"></script>
+    <!-- StikyMenu -->
+    <script src="~/Scripts/stickUp.min.js"></script>
+    <script type="text/javascript">
+		jQuery(function ($) {
+			$(document).ready(function () {
+				$('.navbar-default').stickUp();
+				$(document).getElementById("agreebox").checked = false;
+			});
+		});
+
+    </script>
+    <!-- Smoothscroll -->
+    <script type="text/javascript" src="~/Scripts/jquery.corner.js"></script>
+    <script src="~/Scripts/wow.min.js"></script>
+    <script>
+		new WOW().init();
+    </script>
+    <script src="~/Scripts/uiMorphingButton_inflow.js"></script>
+    <!-- Magnific Popup core JS file -->
+    <script src="~/Scripts/jquery.magnific-popup.js"></script>
+</body>
+</html>

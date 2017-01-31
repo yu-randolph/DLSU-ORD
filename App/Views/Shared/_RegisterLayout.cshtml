@@ -1,0 +1,1060 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>@ViewBag.Title | Online Request for Documents</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="~/Content/bootstrap.min.css">
+	<link rel="stylesheet" href="~/Content/font-awesome.min.css">
+
+	<!-- Juan -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<!-- Custom Google Web Font -->
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<!-- Custom CSS-->
+	<link href="~/Content/register.css" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body style="padding-bottom: 20px;">
+	<nav class="navbar-fixed-top">
+		<div class="container-fluid" style="padding-left: 25px; padding-bottom: 3px; background-color: #fefefe; border-bottom: 1px solid #e0e0e0;">
+			<a href="/">
+				<div class="nav navbar-left navleft" style="margin-top: 5px; height: 60px;">
+					<img src="~/Content/res/logo.png" class="navbar-brand img-responsive logo" />
+					<div class="navbar-text title" style="color: #00703c; font-family: Lato; font-weight: 500; margin-top: 8px; letter-spacing: 0.5px;">Online Request for Documents<br><p style="font-size: 14px;">Office of the Registrar</p></div>
+				</div>
+			</a>
+		</div>
+	</nav>
+
+	@RenderBody()
+
+	<!-- Juan -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+
+	<!-- Javascript -->
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	<script src="~/Scripts/modernizr-2.8.3.min.js"></script>  <!-- Modernizr /-->
+	<script>
+
+		var accountFlag = true, personalFlag = true, academicFlag = true;
+		// account information
+		var emailFlag = false, passwordFlag = false, altEmailFlag = false;
+		// personal information
+		var lnameFlag = false, fnameFlag = false, mnameFlag = false, genderFlag = false, birthdayFlag = false;
+		var citizenshipFlag = false, birthPlaceFlag = false, streetFlag = false, cityFlag = false, addressFlag = false, delivAreaFlag = false;
+		var countryFlag = false, zipFlag = false, phoneNumberFlag = false, altNumberFlag = false;
+		// academic information
+		var highschoolFlag = false, degreeLevelFlag = false, idNumberFlag = false, collegeFlag = false, degreeProgramFlag = false,
+			graduateMonthFlag = false, graduateYearFlag = false, yrLvlFlag = false, termFlag = false, lastTermStartFlag = false,
+			admittedAsFlag = false, yearAdmittedFlag = false, lastSchoolAttendedFlag = false, campusAttendedFlag = false, graduatedFlag = false;
+
+		function addNow() {
+			nowDate = moment().tz("Europe/London").format('YYYY-MM-DD');
+			nowTime = moment().tz("Europe/London").format('HH:mm:ss');
+			document.getElementById('registration-date').value = nowDate;
+			document.getElementById('registration-time').value = nowTime;
+			set = setTimeout(function () { addNow(); }, 1000);
+		}
+
+		function stopNow() {
+			clearTimeout(set);
+		}
+
+		function checkEmail(email) {
+			var count = 0; /*for @@*/
+			var count2 = 0; /*for . */
+			for (var i = 0; i < email.length; i++) {
+				if (email[i] == '@@')
+					count++;
+				if (email[i] == '.')
+					count2++;
+			}
+
+			if (count == 1 && count2 > 0)
+				return true;
+			else false;
+		}
+
+		function checkLetters(text) {
+			var letters = /^[a-z\u00C0-\u00ff\sA-Z]+$/;
+
+			if (letters.test(text))
+				return true;
+			else 
+				return false;
+		}
+
+		function validateEmail() {
+			var email = document.getElementById("email").value;
+			var isEmail = checkEmail(email);
+			if (email == "" || !isEmail) {
+				document.getElementById('emailError').innerHTML = "Please enter a valid Email";
+				emailFlag = true;
+			} else {
+				document.getElementById('emailError').innerHTML = "";
+				emailFlag = false;
+			}
+		}
+
+		function validateAltEmail() {
+			var email = document.getElementById("altEmail").value;
+
+			if (!(email == "")) {
+				var isEmail = checkEmail(email);
+				if (!isEmail) {
+					document.getElementById('altEmailError').innerHTML = "Please enter a valid Email";
+					altEmailFlag = true;
+				} else {
+					document.getElementById('altEmailError').innerHTML = "";
+					altEmailFlag = false;
+				}
+			}
+		}
+
+		function validatePassword() {
+			var password = document.getElementById("password").value;
+
+			if (!(password == "")) {
+				if (password.length >= 8 && password.length <= 32) { // valid
+					document.getElementById('passwordError').innerHTML = "";
+					passwordFlag = false;
+				} else {
+					document.getElementById('passwordError').innerHTML = "Password must be 8 to 32 characters";
+					passwordFlag = true;
+				}
+			} else {
+				document.getElementById('passwordError').innerHTML = "Please enter a password";
+				passwordFlag = true;
+			}
+		}
+
+		function validateLastName() {
+			var text = document.getElementById("lastName").value;
+			document.getElementById('lastNameError').innerHTML = "";
+
+			if (!(text == "")) {
+
+				if (checkLetters(text)) {
+					document.getElementById('lastNameError').innerHTML = "";
+					lnameFlag = false;
+				}
+				else {
+					document.getElementById('lastNameError').innerHTML = "Last name must be in text";
+					lnameFlag = true;
+				}
+			} else {
+				document.getElementById('lastNameError').innerHTML = "Please enter your last name";
+				lnameFlag = true;
+			}
+		}
+
+		function validateFirstName() {
+			var text = document.getElementById("firstName").value;
+			document.getElementById('firstNameError').innerHTML = "";
+
+			if (!(text == "")) {
+				if (checkLetters(text)) {
+					document.getElementById('firstNameError').innerHTML = "";
+					fnameFlag = false;
+				}
+				else {
+					document.getElementById('firstNameError').innerHTML = "First name must be in text";
+					fnameFlag = true;
+				}
+			} else {
+				document.getElementById('firstNameError').innerHTML = "Please enter your first name";
+				fnameFlag = true;
+			}
+		}
+
+		function validateMiddleName() {
+			var text = document.getElementById("middleName").value;
+			document.getElementById('middleNameError').innerHTML = "";
+
+			if (!(text == "")) {
+				if (checkLetters(text)) {
+					document.getElementById('middleNameError').innerHTML = "";
+					mnameFlag = false;
+				}
+				else {
+					document.getElementById('middleNameError').innerHTML = "Middle name must be in text";
+					mnameFlag = true;
+				}
+			} else {
+				document.getElementById('middleNameError').innerHTML = "Please enter your middle name";
+				mnameFlag = true;
+			}
+		}
+
+		function validateGender() {
+			var checked = false;
+
+			if ($('#genderMale').is(':checked')) {
+				checked = true;
+			} else if ($('#genderFemale').is(':checked')) {
+				checked = true;
+			}
+
+			if (checked == true) {
+				document.getElementById('genderError').innerHTML = "";
+				genderFlag = false;
+			}
+			else {
+				document.getElementById('genderError').innerHTML = "Please select your gender";
+				genderFlag = true;
+			}
+		}
+
+		function validateBirthday() {
+			var text = document.getElementById("birthday").value;
+			if (text == "") {
+				document.getElementById('birthdayError').innerHTML = "Please enter your birthday";
+				birthdayFlag = true;
+			}
+			else {
+				document.getElementById('birthdayError').innerHTML = "";
+				birthdayFlag = false;
+			}
+		}
+
+		function validateBirthPlace() {
+			var text = document.getElementById("birthPlace").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				document.getElementById('birthPlaceError').innerHTML = "";
+				birthPlaceFlag = false;
+			} else {
+				document.getElementById('birthPlaceError').innerHTML = "Please enter your place of birth";
+				birthPlaceFlag = true;
+			}
+		}
+		
+		function validateStreet() {
+			var text = document.getElementById("street").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				document.getElementById('streetError').innerHTML = "";
+				streetFlag = false;
+			} else {
+				document.getElementById('streetError').innerHTML = "Please enter your street";
+				streetFlag = true;
+			}
+		}
+
+		function validateCity() {
+			var text = document.getElementById("city").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				document.getElementById('cityError').innerHTML = "";
+				cityFlag = false;
+			} else {
+				document.getElementById('cityError').innerHTML = "Please enter your city";
+				cityFlag = true;
+			}
+		}
+
+		function validateAddress() {
+			var text = document.getElementById("address").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				document.getElementById('addressError').innerHTML = "";
+				addressFlag = false;
+			} else {
+				document.getElementById('addressError').innerHTML = "Please enter your current address";
+				addressFlag = true;
+			}
+		}
+
+		function validateDelivArea() {
+			var text = document.getElementById("delivArea").value;
+			if (text == "Select Delivery Area") {
+				document.getElementById('delivAreaError').innerHTML = "Please select your delivery area";
+				delivAreaFlag = true;
+			}
+			else {
+			    document.getElementById('delivAreaError').innerHTML = "";
+			    delivAreaFlag = false;
+			}
+		}
+
+		function validateCountry() {
+			var text = document.getElementById("country").value;
+			if (text == "Select Country") {
+				document.getElementById('countryError').innerHTML = "Please select your country";
+				countryFlag = true;
+			}
+			else {
+				document.getElementById('countryError').innerHTML = "";
+				countryFlag = false;
+			}
+		}
+
+		function validateZipCode() {
+			var text = document.getElementById("zipCode").value;
+			if (text == "") {
+				document.getElementById('zipCodeError').innerHTML = "Please enter your zip code";
+				zipFlag = true;
+			}
+			else {
+				document.getElementById('zipCodeError').innerHTML = "";
+				zipFlag = false;
+			}
+
+		}
+
+		function validatePhone() {
+			var text = document.getElementById("phoneNumber").value;
+			if (text == "") {
+				document.getElementById('phoneNumberError').innerHTML = "Please enter your phone number";
+				phoneNumberFlag = true;
+			}
+			else {
+				if (text.length > 20) {
+					document.getElementById('phoneNumberError').innerHTML = "Phone number max 20 digits";
+					phoneNumberFlag = true;
+				} else {
+					document.getElementById('phoneNumberError').innerHTML = "";
+					phoneNumberFlag = false;
+				}
+			}
+
+		}
+
+		function validateAltPhone() {
+			var text = document.getElementById("altPhoneNumber").value;
+			if (text.length > 20) {
+				document.getElementById('altPhoneNumberError').innerHTML = "Phone number max 20 digits";
+				altNumberFlag = true;
+			} else {
+				document.getElementById('altPhoneNumberError').innerHTML = "";
+				altNumberFlag = false;
+			}
+		}
+
+
+		function validateHighSchool() {
+			var text = document.getElementById("highSchool").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				if (!checkLetters(text)) {
+					document.getElementById('highSchoolError').innerHTML = "High school name must be in text";
+					highschoolFlag = true;
+				}
+				else {
+					document.getElementById('highSchoolError').innerHTML = "";
+					highschoolFlag = false;
+				}
+			} else {
+				document.getElementById('highSchoolError').innerHTML = "Please enter your high school name";
+				highschoolFlag = true;
+			}
+		}
+
+		function validateDegreeLevel() {
+			var text = document.getElementById("degreeLevel").value;
+			if (text == "Select Degree Level") {
+				document.getElementById('degreeLevelError').innerHTML = "Please select your degree level";
+				degreeLevelFlag = true;
+			}
+			else {
+				document.getElementById('degreeLevelError').innerHTML = "";
+				degreeLevelFlag = false;
+			}
+
+		}
+
+		function validateCollege() {
+			var text = document.getElementById("college").value;
+			if (text == "Select College") {
+				document.getElementById('collegeError').innerHTML = "Please select your college";
+				collegeFlag = true;
+			}
+			else {
+				document.getElementById('collegeError').innerHTML = "";
+				collegeFlag = false;
+			}
+		}
+
+		function validateCourse() {
+			var text = document.getElementById("course").value;
+			var count = 0;
+
+			if (!(text == "")) {
+				if (!checkLetters(text)) {
+					document.getElementById('courseError').innerHTML = "Degree Program must be in text";
+					degreeProgramFlag = true;
+				}
+				else {
+					document.getElementById('courseError').innerHTML = "";
+					degreeProgramFlag = false;
+				}
+			} else {
+				document.getElementById('courseError').innerHTML = "Please enter your degree program";
+				degreeProgramFlag = true;
+			}
+		}
+
+		function disable() {
+
+			if (document.getElementById('isGraduated').checked) {
+				validateGraduateMonth();
+				validateGraduateYear();
+
+				document.getElementById('monthGraduate').disabled = false;
+				document.getElementById('yearGraduate').disabled = false;
+
+				document.getElementById('lastTermStart').disabled = true;
+				document.getElementById('lastTerm').disabled = true;
+				document.getElementById('yrLvl').disabled = true;
+
+				document.getElementById('yrLvlError').innerHTML = "";
+				document.getElementById('lastTermStartError').innerHTML = "";
+				document.getElementById('termError').innerHTML = "";
+			} else if (document.getElementById('notGraduated').checked) {
+				validateYrLvl();
+				validateTerm();
+				validateLastTermStart();
+
+				document.getElementById('monthGraduate').disabled = true;
+				document.getElementById('yearGraduate').disabled = true;
+
+				document.getElementById('lastTermStart').disabled = false;
+				document.getElementById('lastTerm').disabled = false;
+				document.getElementById('yrLvl').disabled = false;
+
+				document.getElementById('graduateMonthError').innerHTML = "";
+				document.getElementById('graduateYearError').innerHTML = "";
+			}
+		}
+
+		function validateGraduated() {
+			var checked = false;
+
+			if ($('#isGraduated').is(':checked')) {
+				checked = true;
+			} else if ($('#notGraduated').is(':checked')) {
+				checked = true;
+			}
+
+			if (checked == true) {
+				document.getElementById('graduatedError').innerHTML = "";
+				graduatedFlag = false;
+			}
+			else {
+				document.getElementById('graduatedError').innerHTML = "Please select below if you have already graduated";
+				graduatedFlag = true;
+			}
+
+		}
+
+		function validateGraduateMonth() {
+			var text = document.getElementById("monthGraduate").value;
+			if (text == "Select Month") {
+				document.getElementById('graduateMonthError').innerHTML = "Please select the month";
+				graduateMonthFlag = true;
+			}
+			else {
+				document.getElementById('graduateMonthError').innerHTML = "";
+				graduateMonthFlag = false;
+			}
+		}
+
+		function validateGraduateYear() {
+			var text = document.getElementById("yearGraduate").value;
+			if (text == "") {
+				document.getElementById('graduateYearError').innerHTML = "Select year";
+				graduateYearFlag = true;
+			}
+			else {
+				if (text >= 1900) {
+					document.getElementById('graduateYearError').innerHTML = "";
+					graduateYearFlag = false;
+				}
+				else {
+					document.getElementById('graduateYearError').innerHTML = "Year is 1900 above";
+					graduateYearFlag = true;
+				}
+			}
+		}
+
+		function validateYrLvl() {
+			var text = document.getElementById("yrLvl").value;
+			if (text == "Year Level") {
+				document.getElementById('yrLvlError').innerHTML = "Please select your year level";
+				yrLvlFlag = true;
+			}
+			else {
+				document.getElementById('yrLvlError').innerHTML = "";
+				yrLvlFlag = false;
+			}
+		}
+
+		function validateTerm() {
+			var text = document.getElementById("lastTerm").value;
+			if (text == "Term") {
+				document.getElementById('termError').innerHTML = "Please select your term";
+				termFlag = true;
+			}
+			else {
+				document.getElementById('termError').innerHTML = "";
+				termFlag = false;
+			}
+		}
+
+		function validateLastTermStart() {
+			var text = document.getElementById("lastTermStart").value;
+			if (text == "") {
+				document.getElementById('lastTermStartError').innerHTML = "Please enter Academic Year";
+				lastTermStartFlag = true;
+			}
+			else {
+				document.getElementById('lastTermStartError').innerHTML = "";
+				lastTermStartFlag = false;
+			}
+		}
+
+		function isTransferee() {
+			if (document.getElementById('transferee').checked) {
+				document.getElementById('lastSchool').disabled = false;
+				document.getElementById('lastSchoolError').innerHTML = "";
+			}
+
+			if (document.getElementById('newStudent').checked) {
+				document.getElementById('lastSchool').disabled = true;
+				document.getElementById('lastSchoolError').innerHTML = "";
+			}
+
+			if (document.getElementById('crossEnrollee').checked) {
+				document.getElementById('lastSchool').disabled = true;
+				document.getElementById('lastSchoolError').innerHTML = "";
+			}
+		}
+
+		function validateAdmittedAs() {
+			var checked = false;
+
+			if ($('#newStudent').is(':checked')) {
+				checked = true;
+			} else if ($('#transferee').is(':checked')) {
+				checked = true;
+			} else if ($('#crossEnrollee').is(':checked')) {
+				checked = true;
+			}
+
+			if (checked == true) {
+				document.getElementById('admissionError').innerHTML = "";
+				admittedAsFlag = false;
+			}
+			else {
+				document.getElementById('admissionError').innerHTML = "Please select on admitted as";
+				admittedAsFlag = true;
+			}
+		}
+
+		function validateYearAdmitted() {
+			var text = document.getElementById("yearAdmitted").value;
+			if (text == "") {
+				document.getElementById('admissionYearError').innerHTML = "Please enter year admitted";
+				yearAdmittedFlag = true;
+			}
+			else {
+				if (text >= 1900) {
+					document.getElementById('admissionYearError').innerHTML = "";
+					yearAdmittedFlag = false;
+				} else {
+					document.getElementById('admissionYearError').innerHTML = "Year above 1900 only";
+					yearAdmittedFlag = true;
+				}
+
+				
+			}
+		}
+
+		function validateLastSchool() {
+			var text = document.getElementById("lastSchool").value;
+			if (text == "") {
+				document.getElementById('lastSchoolError').innerHTML = "Please enter your last school attended";
+				lastSchoolAttendedFlag = true;
+			}
+			else {
+				if (checkLetters(text)) {
+					document.getElementById('lastSchoolError').innerHTML = "";
+					lastSchoolAttendedFlag = false;
+				} else {
+					document.getElementById('lastSchoolError').innerHTML = "Must be in text";
+					lastSchoolAttendedFlag = true;
+				}
+			}
+		}
+
+		function validateCampusAttended() {
+			var text = document.getElementById("campusAttended").value;
+			if (text == "Select Campus") {
+				document.getElementById('campusAttendedError').innerHTML = "Please enter campus attended";
+				campusAttendedFlag = true;
+			}
+			else {
+				document.getElementById('campusAttendedError').innerHTML = "";
+				campusAttendedFlag = false;
+			}
+		}
+
+		function validate() {
+			// check account flag
+			if (emailFlag == true || altEmailFlag == true || passwordFlag == true)
+				accountFlag = true;
+			else accountFlag = false;
+
+			// check personal flag
+			if (lnameFlag == true || fnameFlag == true || mnameFlag == true || genderFlag == true || birthdayFlag == true
+				|| citizenshipFlag == true || birthPlaceFlag == true || streetFlag == true || cityFlag == true || addressFlag == true
+				|| countryFlag == true || zipFlag == true || phoneNumberFlag == true || altNumberFlag == true || delivAreaFlag == true)
+				personalFlag = true;
+			else personalFlag = false;
+
+			// check academic flag
+
+			if (highschoolFlag == true || degreeLevelFlag == true || idNumberFlag == true || collegeFlag == true || degreeProgramFlag == true
+			 || graduateMonthFlag == true || graduateYearFlag == true || yrLvlFlag == true || termFlag == true || lastTermStartFlag == true ||
+			admittedAsFlag == true || yearAdmittedFlag == true || lastSchoolAttendedFlag == true || campusAttendedFlag == true || graduatedFlag == true)
+				academicFlag = true;
+			else academicFlag = false;
+
+			
+			if (accountFlag == true || personalFlag == true || academicFlag == true) {
+			    document.getElementById('error').innerHTML = "Error exists. Kindly review your submission.";
+			} else {
+			    document.getElementById('error').innerHTML = "";
+			    document.getElementById("registerForm").submit();
+			}
+		}
+
+		const courses = [];
+		// BAGCED
+		courses["0"] = [
+		'BEE major in Early Childhood Education (EED-ECED)',
+		'BSE major in Biology (BSE-BIO)',
+		'BSE major in Chemistry (BSE-CHE)',
+		'BSE major in English (BSE-ENG)',
+		'BSE major in Mathematics (BSE-MAT)',
+		'BSE major in Mathematics with specialization in Computer Application (BSE-CAP)',
+		'BSE major in Physical Sciences (BSE-PSC)',
+		'BSE major in Physics (BSE-PHY)',
+		'BS in Educational Psychology (BS-EPSY)'
+		];
+		// CCS
+		courses["1"] = [
+		'BS in Computer Science (CS)',
+		'BS in Computer Science with specialization in Instructional Systems Technology (CS-IST)',
+		'BS in Computer Science with specialization in Software Technology (CS-ST)',
+		'BS in Computer Science with specialization in Network Engineering (CS-NE)',
+		'BS in Computer Science with Specialization in Software Technology minor in Game Development (CS-ST)',
+		'BS in Computer Science (CSS)',
+		'BS in Computer Science major in Computer Systems Engineering (CS-CSE)',
+		'BS in Information System (BSISS)',
+		'BS in Information System (BSINSYS)',
+		'BS in Information Technology (BSIT)'
+		];
+		// CLA
+		courses["2"] = [
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development (AB-OSDM)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Accountancy (OSD-BSA)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Advertising Management (OSD-ADV)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Applied Corporate Management (OSD-APC)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Business Management (OSD-MGT)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Legal Management (OSD-LGL)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Management of Financial Institutions (OSD-FIN)',
+		'AB in Behavioral Sciences major in Organizational and Social Systems Development and BS in Marketing (OSD-MKT)',
+		'AB in Development Studies (AB-DSM)',
+		'AB in History (AB-HIM)',
+		'AB in International Studies major in American Studies (AB-ISA)',
+		'AB in International Studies major in American Studies and BS in Accountancy (ISA-BSA)',
+		'AB in International Studies major in American Studies and BS in Advertising Management (ISA-ADV)',
+		'AB in International Studies major in American Studies and BS in Applied Corporate Management (ISA-APC)',
+		'AB in International Studies major in American Studies and BS in Business Management (ISA-MGT)',
+		'AB in International Studies major in American Studies and BS in Legal Management (ISA-LGL)',
+		'AB in International Studies major in American Studies and BS in Management of Financial Institutions (ISA-FIN)',
+		'AB in International Studies major in American Studies and BS in Marketing Management (ISA-MKT)',
+		'AB in International Studies major in Chinese Studies (AB-ISC)',
+		'AB in International Studies major in European Studies (AB-ISE)',
+		'AB in International Studies major in European Studies and BS in Accountancy (ISE-BSA)',
+		'AB in International Studies major in European Studies and BS in Advertising Management (ISE-ADV)',
+		'AB in International Studies major in European Studies and BS in Applied Corporate Management (ISE-APC)',
+		'AB in International Studies major in European Studies and BS in Business Management (ISE-MGT)',
+		'AB in International Studies major in European Studies and BS in Legal Management (ISE-LGL)',
+		'AB in International Studies major in European Studies and BS in Management of Financial Institutions (ISE-FIN)',
+		'AB in International Studies major in European Studies and BS in Marketing Management (ISE-MKT)',
+		'AB in International Studies major in Japanese Studies (AB-ISJ)',
+		'AB in International Studies major in Japanese Studies and BS in Accountancy (ISJ-BSA)',
+		'AB in International Studies major in Japanese Studies and BS in Advertising Management (ISJ-ADV)',
+		'AB in International Studies major in Japanese Studies and BS in Applied Corporate Management (ISJ-APC)',
+		'AB in International Studies major in Japanese Studies and BS in Business Management (ISJ-MGT)',
+		'AB in International Studies major in Japanese Studies and BS in Legal Management (ISJ-LGL)',
+		'AB in International Studies major in Japanese Studies and BS in Management of Financial Institutions (ISJ-FIN)',
+		'AB in International Studies major in Japanese Studies and BS in Marketing Management (ISJ-MKT)',
+		'AB in Literature (AB-LIM)',
+		'AB in Philippine Studies major in Filipino in Mass Media (AB-PHM)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Accountancy (PHM-BSA)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Advertising Management (PHM-ADV)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Applied Corporate Management (PHM-APC)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Business Management (PHM-MGT)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Legal Management (PHM-LGL)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Management of Financial Institutions (PHM-FIN)',
+		'AB in Philippine Studies major in Filipino in Mass Media and BS in Marketing Management (PHM-MKT)',
+		'AB major in Communication Arts (AB-CAM)',
+		'AB major in Communication Arts and BS in Accountancy (CAM-BSA)',
+		'AB major in Communication Arts and BS in Advertising Management (CAM-ADV)',
+		'AB major in Communication Arts and BS in Applied Corporate Management (CAM-APC)',
+		'AB major in Communication Arts and BS in Business Management (CAM-MGT)',
+		'AB major in Communication Arts and BS in Legal Management (CAM-LGL)',
+		'AB major in Communication Arts and BS in Management of Financial Institutions (CAM-FIN)',
+		'AB major in Communication Arts and BS in Marketing Management (CAM-MKT)',
+		'AB major in Development Studies and BS in Accountancy (DSM-BSA)',
+		'AB major in Development Studies and BS in Advertising Management (DSM-ADV)',
+		'AB major in Development Studies and BS in Applied Corporate Management (DSM-APC)',
+		'AB major in Development Studies and BS in Business Management (DSM-MGT)',
+		'AB major in Development Studies and BS in Legal Management (DSM-LGL)',
+		'AB major in Development Studies and BS in Management of Financial Institutions (DSM-FIN)',
+		'AB major in Development Studies and BS in Marketing Management (DSM-MKT)',
+		'AB major in History and BS in Accountancy (HIM-BSA)',
+		'AB major in History and BS in Advertising Management (HIM-ADV)',
+		'AB major in History and BS in Applied Corporate Management (HIM-APC)',
+		'AB major in History and BS in Business Management (HIM-MGT)',
+		'AB major in History and BS in Legal Management (HIM-LGL)',
+		'AB major in History and BS in Management of Financial Institutions (HIM-FIN)',
+		'AB major in History and BS in Marketing Management (HIM-MKT)',
+		'AB major in Literature and BS in Accountancy (LIM-BSA)',
+		'AB major in Literature and BS in Advertising Management (LIM-ADV)',
+		'AB major in Literature and BS in Applied Corporate Management (LIM-APC)',
+		'AB major in Literature and BS in Business Management (LIM-MGT)',
+		'AB major in Literature and BS in Legal Management (LIM-LGL)',
+		'AB major in Literature and BS in Management of Financial Institutions (LIM-FIN)',
+		'AB major in Literature and BS in Marketing Management (LIM-MKT)',
+		'AB major in Organizational Communication (AB-OCM)',
+		'AB major in Organizational Communication and BS in Accountancy (OCM-BSA)',
+		'AB major in Organizational Communication and BS in Advertising Management (OCM-ADV)',
+		'AB major in Organizational Communication and BS in Applied Corporate Management (OCM-APC)',
+		'AB major in Organizational Communication and BS in Business Management (OCM-MGT)',
+		'AB major in Organizational Communication and BS in Legal Management (OCM-LGL)',
+		'AB major in Organizational Communication and BS in Management of Financial Institutions (OCM-FIN)',
+		'AB major in Organizational Communication and BS in Marketing Management (OCM-MKT)',
+		'AB major in Philosophy (AB-PLM)',
+		'AB major in Philosophy and BS in Accountancy (PLM-BSA)',
+		'AB major in Philosophy and BS in Advertising Management (PLM-ADV)',
+		'AB major in Philosophy and BS in Applied Corporate Management (PLM-APC)',
+		'AB major in Philosophy and BS in Business Management (PLM-MGT)',
+		'AB major in Philosophy and BS in Legal Management (PLM-LGL)',
+		'AB major in Philosophy and BS in Management of Financial Institutions (PLM-FIN)',
+		'AB major in Philosophy and BS in Marketing Management (PLM-MKT)',
+		'AB major in Political Science (AB-POM)',
+		'AB major in Political Science and BS in Accountancy (POM-BSA)',
+		'AB major in Political Science and BS in Advertising Management (POM-ADV)',
+		'AB major in Political Science and BS in Applied Corporate Management (POM-APC)',
+		'AB major in Political Science and BS in Business Management (POM-MGT)',
+		'AB major in Political Science and BS in Legal Management (POM-LGL)',
+		'AB major in Political Science and BS in Management of Financial Institutions (POM-FIN)',
+		'AB major in Political Science and BS in Marketing Management (POM-MKT)',
+		'AB major in Psychology (AB-PSM)',
+		'AB major in Psychology and BS in Accountancy (PSM-BSA)',
+		'AB major in Psychology and BS in Advertising Management (PSM-ADV)',
+		'AB major in Psychology and BS in Applied Corporate Management (PSM-APC)',
+		'AB major in Psychology and BS in Business Management (PSM-MGT)',
+		'AB major in Psychology and BS in Legal Management (PSM-LGL)',
+		'AB major in Psychology and BS in Management of Financial Institutions (PSM-FIN)',
+		'AB major in Psychology and BS in Marketing Management (PSM-MKT)',
+		'BS in Psychology (BS-PSYC)',
+		'BA in Communication major in Media Arts'
+		];
+		// COS
+		courses["3"] = [
+		'BS in Biochemistry (BSBCHEM)',
+		'BS in Biology (BS-BIO)',
+		'BS in Chemistry (BS-CHY)',
+		'BS in Chemistry minor in Business Studies (BS-CHYB)',
+		'BS in Human Biology (HUM-BIO)',
+		'BS in Mathematics with specialization in Business Applications (MTH-BAP)',
+		'BS in Mathematics with specialization in Computer Applications (MTH-CAP)',
+		'BS in Physics minor in Economics (BSPHYEC)',
+		'BS in Physics minor in Finance (BSPHYFI)',
+		'BS in Physics with specialization in Materials Science (PHY-MAT)',
+		'BS in Physics with specialization in Medical Instrumentation (PHY-MED)',
+		'BS in Premed Physics (PHY-PMD)',
+		'BS in Statistics major in Actuarial Science (BS-STAT)'
+		];
+		//GCOE
+		courses["4"] = [
+		'BS in Chemical Engineering (CHE)',
+		'BS in Civil Engineering (CIV)',
+		'BS in Civil Engineering with specialization in Structural Engineering (CIV)',
+		'BS in Civil Engineering with specialization in Construction Technology and Management (CIV)',
+		'BS in Civil Engineering with specialization in Hydraulics and Water Resources Management (CIV)',
+		'BS in Civil Engineering with specialization in Transportation Engineering (CIV)',
+		'BS in Computer Engineering (CIV)',
+		'BS in Computer Engineering (CPES)',
+		'BS in Electronics Engineering (ECE2S)',
+		'BS in Electronics Engineering (ECE2)',
+		'BS in Industrial Engineering (IE)',
+		'BS in Industrial Engineering (IES)',
+		'BS in Industrial Management Engineering minor in Information Technology (IME-IT)',
+		'BS in Industrial Management Engineering minor in Information Technology and Master of Science in Industrial Engineering (BSMSIET)',
+		'BS in Industrial Management Engineering minor in Service Management (IME-SM)',
+		'BS in Industrial Management Engineering minor in Service Management and Master of Science in Industrial Engineering (BSMSIES)',
+		'BS in Manufacturing Engineering & Management with specialization in Mechatronics & Robotics Engineering (MEM-MR)',
+		'BS in Manufacturing Engineering & Management with specialization in Mechatronics & Robotics Engineering (MEM-MRS)',
+		'BS in Manufacturing Engineering and Management with specialization in Biomedical Engineering (MEM-BME)',
+		'BS in Mechanical Engineering (MEE)',
+		'BS in Mechanical Engineering with concentration in Mechatronics (MEES)',
+		'BS in Electronics and Communications Engineering '
+		];
+		// RVRCOB
+		courses["5"] = [
+		'BS in Accountancy (BSA)',
+		'BS in Advertising Management (ADV)',
+		'BS in Applied Corporate Management (APC)',
+		'BS in Business Management (MGTS)',
+		'BS in Business Management (MGT)',
+		'BS in Entrepreneurship (BS-ENTS)',
+		'BS in Entrepreneurship (BS-ENT)',
+		'BS in Interdisciplinary Business Studies (IBS)',
+		'BS in Legal Management (LGL)',
+		'BS in Management of Financial Institutions (FIN)',
+		'BS in Marketing Management (MKT)',
+		'BS in Business Administration major in Entrepreneurship ',
+		'BS in Business Administration major in Management ',
+		'BS in Business Administration major in Operations Management ',
+		];
+		// SOE
+		courses["6"] = [
+		'AB major in Economics (AB-ECM)',
+		'AB major in Economics and BS in Accountancy (ECM-BSA)',
+		'AB major in Economics and BS in Advertising Management (ECM-ADV)',
+		'AB major in Economics and BS in Applied Corporate Management (ECM-APC)',
+		'AB major in Economics and BS in Business Management (ECM-MGT)',
+		'AB major in Economics and BS in Legal Management (ECM-LGL)',
+		'AB major in Economics and BS in Management of Financial Institutions (ECM-FIN)',
+		'AB major in Economics and BS in Marketing Management (ECM-MKT)',
+		'BS in Applied Economics (BS-AEL)',
+		'BS in Applied Economics major in Financial Economics (BS-AEF)',
+		'BS in Applied Economics major in Financial Economics and BS in Accountancy (AEF-BSA)',
+		'BS in Applied Economics major in Financial Economics and BS in Advertising Management (AEF-ADV)',
+		'BS in Applied Economics major in Financial Economics and BS in Applied Corporate Management (AEF-APC)',
+		'BS in Applied Economics major in Financial Economics and BS in Business Management (AEF-MGT)',
+		'BS in Applied Economics major in Financial Economics and BS in Legal Management (AEF-LGL)',
+		'BS in Applied Economics major in Financial Economics and BS in Management of Financial Institutions (AEF-FIN)',
+		'BS in Applied Economics major in Financial Economics and BS in Marketing Management (AEF-MKT)',
+		'BS in Applied Economics major in Industrial Economics (BS-AEI)',
+		'BS in Applied Economics major in Industrial Economics and BS in Accountancy (AEI-BSA)',
+		'BS in Applied Economics major in Industrial Economics and BS in Advertising Management (AEI-ADV)',
+		'BS in Applied Economics major in Industrial Economics and BS in Applied Corporate Management (AEI-APC)',
+		'BS in Applied Economics major in Industrial Economics and BS in Business Management (AEI-MGT)',
+		'BS in Applied Economics major in Industrial Economics and BS in Legal Management (AEI-MGT)',
+		'BS in Applied Economics major in Industrial Economics and BS in Management of Financial Institutions (AEI-FIN)',
+		'BS in Applied Economics major in Industrial Economics and BS in Marketing Management (AEI-MKT)',
+		'AB major in Economics (AB-ECM)',
+		'AB major in Economics and BS in Accountancy (ECM-BSA)',
+		'AB major in Economics and BS in Applied Corporate Management (ECM-APC)',
+		'AB major in Economics and BS in Business Management (ECM-MGT)',
+		'AB major in Economics and BS in Advertising Management (ECM-ADV)',
+		'AB major in Economics and BS in Marketing Management (ECM-MKT)',
+		'AB major in Economics and BS in Legal Management (ECM-LGL)',
+		'AB major in Economics and BS in Management of Financial Institutions (ECM-FIN)'
+		];
+		// COL
+		courses["7"] = [
+			'Juris Doctor (JDCTR)'
+		];
+
+		courses["8"] = [
+		'BA-MA in Behavioral Science in Organizational and Social System Development (BAMAOSD)',
+		'Certificate in Teaching Religion (CERTREL)',
+		'Doctor of Arts in Language and Literature major in Literature (DALLLIT)',
+		'Doctor of Education major in Religious Education and Values Education (DERVED)',
+		'Doctor of Fine Arts in Creative Writing (DFACREA)',
+		'Doctor of Philosophy in Applied Theology (PHDTHEO)',
+		'Doctor of Philosophy in Araling Filipino (PHARFIL)',
+		'Doctor of Philosophy in Development Studies (DDEVEST)',
+		'Doctor of Philosophy in Literature (PHDLITT)',
+		'Doctor of Philosophy in Philosophy (PDPHILO)',
+		'Doctor of Philosophy in Philosophy (PDLADPH)',
+		'Doctor of Philosophy in Psychology major in Clinical Psychology (PSY-CLP)',
+		'Doctor of Philosophy in Psychology major in Human Development (PSY-HMD)',
+		'Doctor of Philosophy in Psychology major in Industrial/Organizational Psychology (PSY-IOP)',
+		'Doctor of Philosophy in Sociology (PHDSOC)',
+		'Doktor sa Pilosopiya sa Araling Filipino-Wika, Kultura, Midya (PHARFIL)',
+		'AB in Behavioral Sciences and Master of Arts in Behavioral Sciences with specialization in Organizational and Social Systems Development (Ladderized Program) ',
+		'Master of Arts in Behavioral Sciences (MABESC)',
+		'Master of Arts in Philippine Studies (MAPHIST)',
+		'Master in History (NTMHIST)',
+		'Master in Philosophy (MATPHIL*)',
+		'Master in Sociology (NTMSOCI)',
+		'Master ng Sining sa Araling Filipino-Wika, Kultura, Midya (MAARFIL)',
+		'Master of Arts in Applied Theology (MA-THEO)',
+		'Master of Arts in Behavioral Science with a track in Environmental Studies (MBESES11)',
+		'Master of Arts in Behavioral Science with a track in Organizational and Social Systems Development (MBEOSD11)',
+		'Master of Arts in Communication (MACOMMS)',
+		'Master of Arts in Communication major in Applied Media Technology Studies (MACOMMS)',
+		'Master of Arts in Development Policy (MADEPOL)',
+		'Master of Arts in History (MAHISTO)',
+		'Master of Arts in International Studies major in Asian Studies (MAIS-AS)',
+		'Master of Arts in International Studies major in European Studies (MAIS-ES)',
+		'Master of Arts in Language and Literature major in Literature (MALLLIT)',
+		'Master of Arts in Philosophy (MAPHILO)',
+		'Master of Arts in Political Science (MAPOLSC)',
+		'Master of Arts in Religious Education (MARELED)',
+		'Master of Fine Arts in Creative Writing (MFACREA)',
+		'Master of Health Social Science (MAHESOS)',
+		'Master of Science in Psychology major in Clinical Psychology (MSPSYCP)',
+		'Master of Science in Psychology major in Human Development (MSPSYHD)',
+		'Master of Science in Psychology major in Industrial/Organizational Psychology (MSPSYIO)',
+		'PhD in Applied Theology major in Formative Counseling (MAPHATR)',
+		'PhD in Applied Theology major in Religious Education (MAPHATF)',
+		'Diploma in Entrepreneurship (DIP-ENT)',
+		'Diploma in Financial Engineering (DIP-FE)',
+		'Diploma in Industrial Relations Management (DIPIRM)',
+		'Diploma in Management (PGDM)',
+		'Diploma in Marketing (DIPMKTG)',
+		'Doctor of Business Administration (DBA)',
+		'Doctor of Philosophy in Business (PHDBUS09)',
+		'Master in Risk and Insurance Management (MRISINS)',
+		'Master of Business Administration (MBA)',
+		'Master of Marketing Communications (MMC)',
+		'Master of Science in Accountancy (MSA)',
+		'Master of Science in Computational Finance (MSCF)',
+		'Master of Science in Entrepreneurship (MS-ENT)',
+		'Master of Science in Financial Engineering (MS-FE)',
+		'Master of Science in Industrial Relations Management (MSIRM)',
+		'Master of Science in Marketing (MSMKTG)',
+		'Doctor of Philosophy in Economics (PDLADEC)',
+		'Master in Applied Economics (M-AE)',
+		'Master of Science in Economics (MSECO12)',
+		'BS in Applied Economics (Honors) (Ladderized) (BS-AEL)',
+		'Doctor of Philosophy in Chemical Engineering (PHD-CHE)',
+		'Doctor of Philosophy in Civil Engineering (PHDCE)',
+		'Doctor of Philosophy in Electronics and Communications Engineering (PHD-ECE)',
+		'Doctor of Philosophy in Industrial Engineering (PHD-IE)',
+		'Doctor of Philosophy in Mechanical Engineering (PHD-ME)',
+		'Master of Engineering major in Chemical Engineering (MEP-CHE)',
+		'Master of Engineering major in Civil Engineering (MEP-CE)',
+		'Master of Engineering major in Electronics and Communications Engineering (MEP-ECE)',
+		'Master of Engineering major in Environmental Engineering and Management (MEP-ENVI)',
+		'Master of Engineering major in Industrial Engineering (MEP-IE)',
+		'Master of Engineering major in Manufacturing Engineering (MEP-MFG)',
+		'Master of Engineering major in Mechanical Engineering (MEP-ME)',
+		'Master of Science in Chemical Engineering (MS-CHE)',
+		'Master of Science in Civil Engineering (MS-CE)',
+		'Master of Science in Electronics and Communications Engineering (MS-ECE)',
+		'Master of Science in Environmental Engineering and Management (MSENVI)',
+		'Master of Science in Industrial Engineering (MS-IE)',
+		'Master of Science in Manufacturing Engineering (MS-MFGE)',
+		'Master of Science in Mechanical Engineering (MS-ME)',
+		'BS in Industrial Engineering and Master of Science in Industrial Engineering Minor in Information Technology (Ladderized Program)',
+		'BS in Industrial Engineering and Master of Science in Industrial Engineering Minor in Service Management (Ladderized Program)',
+		'Doctor of Philosophy in Computer Science (PHDCS)',
+		'Master in Information Technology (Non-Thesis) (NTMIT14)',
+		'Master of Computer Science (MCS)',
+		'Master of Science in Computer Science (MSCS)',
+		'Master of Science in Information Technology (MSIT)',
+		'PhD in Information Technology (DITECH10)',
+		'Doctor of Philosophy in Biology (PHD-BIO)',
+		'Doctor of Philosophy in Chemistry (PHDCHY12)',
+		'Doctor of Philosophy in Mathematics (PHD-MTH)',
+		'Doctor of Philosophy in Mathematics (PHDSMTH)',
+		'Doctor of Philosophy in Physics (PHD-PHY)',
+		'Doctor of Philosophy in Physics (PHDSPHY)',
+		'Master in Biology (NTMBIO)',
+		'Master in Chemistry (NTMCHEM)',
+		'Master in Mathematics (NTMMATH)',
+		'Master in Physics (NTMPHY)',
+		'Master of Science in Biology (MS-BIO)',
+		'Master of Science in Chemistry (MS-CHEM)',
+		'Master of Science in Environmental Science and Ecosystem Management (MS-ESEM)',
+		'Master of Science in Mathematics (MS-MATH)',
+		'Master of Science in Physics (MS-PHY)',
+		'Master of Science in Statistics (MSSTAT)',
+		'Diploma in Teaching English as a Second/Foreign Language (DIPESFL)',
+		'Doctor of Philosophy in Applied Linguistics (PHDAPLN)',
+		'Doctor of Philosophy in Applied Linguistics (Straight Program) (PHDAPLS)',
+		'Doctor of Philosophy in Counseling Psychology (DPCPSY09)',
+		'Doctor of Philosophy in Education major in Educational Leadership and Management (PHDELM)',
+		'Doctor of Philosophy in Education major in Educational Leadership and Management - Executive Program (PHDELMX)',
+		'Doctor of Philosophy in Educational Psychology (DEPSYC)',
+		'Doctor of Philosophy in Science Education major in Biology (DSEDBIO)',
+		'Doctor of Philosophy in Science Education major in Chemistry (DSEDCHE)',
+		'Doctor of Philosophy in Science Education major in Mathematics (DSEDMAT)',
+		'Doctor of Philosophy in Science Education major in Physics (DSEDPHY)',
+		'Master in Learning and Teaching (MALTEA09)',
+		'Master in Teaching General Science in Basic Education (MEDGSCI)',
+		'Master of Arts in Applied Theology (Non-Thesis) (NTMTHEO)',
+		'Master of Arts in Counseling (MACLING)',
+		'Master of Arts in Counseling (Non-Thesis) (NTMACLG)',
+		'Master of Arts in Education major in Early Childhood Education (MAEDECD)',
+		'Master of Arts in Education major in Educational Leadership and Management (MAEDELM)',
+		'Master of Arts in Education major in Special Education (MAEDELM)',
+		'Master of Arts in Education major in Student Affairs and Services Management (MAESASM)',
+		'Master of Arts in English Language Education (MAELED)',
+		'Master of Arts in Teaching major in English Language (MAT-EL)',
+		'Master of Education major in Biology (NTMEBIO)',
+		'Master of Education major in Chemistry (NTMECHE)',
+		'Master of Education major in Early Childhood Education (Non Thesis) (NTMECED)',
+		'Master of Education major in Educational Leadership (NTMEDEL)',
+		'Master of Education major in Educational Leadership and Management (NTMEELM)',
+		'Master of Education major in Mathematics (NTMEMAT)',
+		'Master of Education major in Physics (NTMEPHY)',
+		'Master of Education major in Religious and Values Education (NTMERVE)',
+		'Master of Education major in Special Education (NTMSPED)',
+		'Master of Science in Teaching major in Biology (MST-BIO)',
+		'Master of Science in Teaching major in Chemistry (MSTCHEM)',
+		'Master of Science in Teaching major in Mathematics (MSTMATH)',
+		'Master of Science in Teaching major in Physics (MST-PHY)',
+		'Teacher Certificate Program (TCPEDUC)'
+		];
+
+		var counter = 0;
+
+		function updateCourses(college) {
+		    var c = $("#college").val;
+
+			$("#course").val("");
+			$("#course").autocomplete({
+				source: courses[c]
+			});
+		}
+
+		function plusone(one, two) {
+			if (document.getElementById(one).value == 0) {
+				document.getElementById(two).placeholder = "";
+			}
+			else {
+				var plusone = parseInt(document.getElementById(one).value) + 1;
+
+				document.getElementById(two).placeholder = plusone;
+			}
+
+		}
+
+	</script>
+</body>
+
+</html>

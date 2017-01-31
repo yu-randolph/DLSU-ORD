@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "View Cart";
+    Layout = "~/Views/Shared/_TransactionLayout.cshtml";
+}
+
+@section headerScript{
+       <script>
+           window.onload = populateEditCart;                   
+       </script>
+ }
+@section btnStep {
+    <!--btnStep-->
+    <div class="row btnStep" style="margin-top: 7px;">
+        <div class="col-xs-9 stepHeader">
+            <ul class="nav nav-pills nav-justified thumbnail" style="width: 810px;">
+                <li class="stepBtn">
+                    <a href="order">
+                        <h4 class="list-group-item-heading stephead">Step 1</h4>
+                        <p class="list-group-item-text">Order Documents</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="cart">
+                        <h4 class="list-group-item-heading stephead">Step 2</h4>
+                        <p class="list-group-item-text">Edit Cart</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="info">
+                        <h4 class="list-group-item-heading stephead">Step 3</h4>
+                        <p class="list-group-item-text">Delivery Info</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="checkout">
+                        <h4 class="list-group-item-heading stephead">Step 4</h4>
+                        <p class="list-group-item-text">Checkout</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="#">
+                        <h4 class="list-group-item-heading stephead">Step 5</h4>
+                        <p class="list-group-item-text">Payment</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.btnStep -->
+
+}
+
+@section body {
+    <div class="container item-list-cont" style="margin-top: 170px;">
+            <div class="row">
+                <div class="col-sm-10 col-md-8 stepHeader">
+                    <table class="table table-hover" >
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Total</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody id="editCartTable">
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td><h3>Total</h3></td>
+                                <td class="text-right"><h3 id="totalPrice">P0.00</h3></td>
+                            </tr>
+
+                        </tfoot>
+                    </table>
+
+                    <div>
+                        <button type="submit" class="btn btn-default" style="float: left;" onclick="location.href='@Url.Action("order", "Transaction")'">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Go Back
+                        </button>
+
+                        <button type="button" class="btn" style="background-color: #5cb85c; color: white; float: right; margin-left: 10px" onclick="location.href='@Url.Action("info", "Transaction")'">
+                            Proceed to Next Step <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                        <button type="button" class="btn" style="background-color: #e2dfdf; float: right" onclick="location.href='@Url.Action("order", "Transaction")'">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Add other items
+                        </button>
+                        <span>&nbsp; &nbsp;</span>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+}

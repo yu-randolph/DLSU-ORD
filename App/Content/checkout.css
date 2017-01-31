@@ -1,0 +1,37 @@
+.totalLabel{
+    width: 250px;
+}
+
+.mailing-container{
+    margin-left: 80px;
+    top: 20px;
+}
+
+.text-label{
+    font-weight: bold;
+}
+
+.table-header{
+    background-color: #00703c;
+    color: #fefefe;   
+}
+
+hr{
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 0px;
+    border-style: inset;
+    border-width: 1px;
+    width: 810px;
+}
+
+select{
+    width: 400px;
+}
+
+.button-container{ 
+    margin-left: 80px; 
+    margin-top: 40px;
+    margin-bottom: 30px;    
+}

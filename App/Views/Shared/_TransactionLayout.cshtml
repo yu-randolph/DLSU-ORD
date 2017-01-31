@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title | Online Request for Documents</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+
+    
+    <!-- Custom Google Web Font -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- Custom CSS-->
+
+    <link rel="stylesheet" href="~/Content/transaction.css">
+    <link href="~/Content/order.css" rel="stylesheet">
+    <link href="~/Content/event-list.css" rel="stylesheet">
+    <link href="~/Content/checkout.css" rel="stylesheet">
+    <link href="~/Content/contact-panel.css" rel="stylesheet">
+    <link href="~/Content/index.css" rel="stylesheet">
+
+    <script src="~/Scripts/ordercart.js"></script>
+    @RenderSection("headerScript", required: false);
+</head>
+<body style = "padding-bottom: 30px;">
+    <nav class="navbar-fixed-top">
+        <div class="container-fluid" style="padding-left: 25px; padding-bottom: 3px; background-color: #fefefe; border-bottom: 1px solid #e0e0e0;">
+            <a href="/">
+                <div class="nav navbar-left navleft" style="margin-top: 5px; height: 60px;">
+                    <img src="~/Content/res/logo.png" class="navbar-brand img-responsive logo" />
+                    <div class="navbar-text title" style="color: #00703c; font-family: Lato; font-weight: 500; margin-top: 8px; letter-spacing: 0.5px;">Online Request for Documents<br><p style="font-size: 14px;">Office of the Registrar</p></div>
+                </div>
+            </a>
+
+            <div class="nav navbar-right navright" style="margin-right: 10px;">
+                <ul class ="nav navbar-nav">
+                    <li class="btn btn-default navbtn namebtn" type="submit" style="background: transparent; border: none; border-radius: 0px;"><span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-top: 5px; color: #00703c;"></span> <span class="username">&nbsp;@ViewBag.name</span></li>
+                <li class="dropdown">
+                    <button class="btn btn-default navbtn circ dropdown dropdown-toggle" id="viewCartButton" onclick="viewCart()"style="border-radius: 100%; background-color: #00703c; color: #fefefe;" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="margin-top: 5px;"></span></button>
+                    <ul class="dropdown-menu" id="viewCart" style="list-style: none; width: 600px;">
+                        <li>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th class="text-center">Price</th>
+                                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </li>
+                    </ul>
+                </li>
+                    <li class="btn btn-default navbtn circ" data-toggle="modal" data-target="#myModal" type="button" style="border-radius: 100%; background-color: #00703c; color: #fefefe;"><span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="margin-top: 5px;"></span></li>
+                </ul>
+
+                </div>
+
+        </div>
+       
+
+        @RenderSection("btnStep", required: false)
+    </nav>
+
+    @RenderSection("body", true)
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content" style="font-family: Lato; line-height: 1.72222;color: rgb(0, 86, 46);">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel">
+                        <b> Policies and Procedures </b>
+                    </h4>
+                </div>
+
+                <div class="modal-body" style="padding-bottom: 0%; font-size: 14px; ">
+                    <p class="modalTxt">1. &nbsp This Online Request for Documents consists of 5 steps, which can be completed in approximately 10 minutes.</p>
+                    <p class="modalTxt">2. &nbsp The processing period indicated herein (whether regular or express) is different and distinct from the delivery period which is dependent on the location you have specified.</p>
+                    <p class="modalTxt">3. &nbsp This Online Request for Documents includes an online payment facility using your international credit card. Accepted credit cards are <b><u>Visa, Mastercard, JCB and American Express</u></b>. The Request is deemed submitted to the Office of the University Registrar and valid for processing upon approval of the credit card payment.</p>
+                    <p class="modalTxt">4. &nbsp Because of the automated nature of this online request for documents and payment, <b><u>no request for cancellation, substitution, refund</u></b> and the like may be entertained.</p>
+                    <p class="modalTxt">5. &nbsp The processing of request for documents carries with it the responsibility of securing clearances from certain offices / units in the university. If, for any reason, your name is in any of these lists, we regret that we cannot process your request and we will inform you accordingly.</p>
+                    <p class="modalTxt">6. &nbsp Unauthorized request is punishable by law.</p>
+                    <p class="modalTxt">7. &nbsp Please note that this service only ships to <b><u>certain countries</u></b>. Go <a href="delivery.html" target="_blank"><u>here</u></a> to view the full list.</p>
+                    <p class="modalTxt">8. &nbsp For questions or follow-up please e-mail <b><u>registrar@dlsu.edu.ph</u></b></p>
+                    <div class="line-separator"></div>
+
+                </div>
+
+               
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+
+    </div><!-- /.modal -->
+    <!-- JavaScript -->
+
+    <script src="~/Scripts/html5shiv.js"></script>
+    <script src="~/Scripts/owl.carousel.js"></script>
+    <script src="~/Scripts/script.js"></script>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.min.js"></script>  <!-- Modernizr /-->
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

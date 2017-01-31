@@ -1,0 +1,178 @@
+﻿
+@{
+	ViewBag.Title = "Payment";
+	Layout = "~/Views/Shared/_TransactionLayout.cshtml";
+}
+
+@section scripts {
+	<script type="text/javascript">
+		function validateForm() {
+
+			var lastName = document.forms["registerForm"]["lastName"].value;
+			var firstName = document.forms["registerForm"]["firstName"].value;
+			var middleName = document.forms["registerForm"]["middleName"].value;
+
+			var isValid = true;
+
+			if (lastName == "") {
+				document.getElementById('lastNameError').innerHTML = "Please Enter your Last Name";
+				isValid = false;
+			}
+			if (firstName == "") {
+				document.getElementById('firstNameError').innerHTML = "Please Enter your First Name";
+				isValid = false;
+			}
+			if (middleName == "") {
+				document.getElementById('middleNameError').innerHTML = "Please Enter your Midddle Name";
+				isValid = false;
+			}
+			if(!document.getElementById('currecyPHP').checked && !document.getElementById('currencyUSD').checked){
+			document.getElementById('currencyError').innerHTML = "Please choose a currency";
+				isValid = false;
+			}
+			if(!document.getElementById('bdo').checked && !document.getElementById('paynamics').checked){
+			document.getElementById('providerError').innerHTML = "Please choose a provider";
+				isValid = false;
+			}
+
+
+			return isValid;
+		}
+	</script>
+}
+
+@section viewCart{
+	<ul class="dropdown-menu" style="list-style: none; width: 600px;">
+		<table class="table table-hover" id="cartTable">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th class="text-center">Price</th>
+					<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				</tr>
+			</thead>
+
+		</table>
+	</ul>
+}
+@section btnStep{
+	<!--btnStep-->
+	<div class="row btnStep" style="margin-top: 7px;">
+		<div class="col-xs-9 stepHeader">
+			<ul class="nav nav-pills nav-justified thumbnail" style="width: 810px;">
+				<li class="stepBtn">
+					<a href="order">
+						<h4 class="list-group-item-heading stephead">Step 1</h4>
+						<p class="list-group-item-text">Order Documents</p>
+					</a>
+				</li>
+				<li class="stepBtn">
+					<a href="cart">
+						<h4 class="list-group-item-heading stephead">Step 2</h4>
+						<p class="list-group-item-text">Edit Cart</p>
+					</a>
+				</li>
+				<li class="stepBtn">
+					<a href="info">
+						<h4 class="list-group-item-heading stephead">Step 3</h4>
+						<p class="list-group-item-text">Delivery Info</p>
+					</a>
+				</li>
+				<li class="stepBtn">
+					<a href="success">
+						<h4 class="list-group-item-heading stephead">Step 4</h4>
+						<p class="list-group-item-text">Checkout</p>
+					</a>
+				</li>
+				<li class="active">
+					<a href="payment">
+						<h4 class="list-group-item-heading stephead">Step 5</h4>
+						<p class="list-group-item-text">Payment</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /.btnStep -->
+}
+
+@section body {
+
+	<div class="container item-list-cont" style="margin-top: 170px;">
+	<div class="col-sm-10 col-md-8 stepHeader">
+
+		<form class="form-horizontal" name="paymentForm" onsubmit="return validateForm()" role="form">
+			<!-- Payment -->
+
+			<fieldset>
+					<!-- Form Name -->
+					<h3 class="text-label">Payment Details</h3>
+					<hr><br>
+
+					<div class="form-group">
+						<label class="col-sm-4" for="textinput">Reference Number:</label>
+						<div class="col-sm-4">
+
+						</div>
+					</div>
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-sm-2" for="textinput">Payor's Name</label>
+						<div class="col-sm-3">
+							<input type="text" placeholder="Last Name" name="lastName" class="form-control">
+							<label id="lastNameError" class="label-error"></label>
+						</div>
+
+						<div class="col-sm-4">
+							<input type="text" placeholder="First Name" name="firstName" class="form-control">
+							<label id="firstNameError" class="label-error"></label>
+						</div>
+
+						<div class="col-sm-3">
+							<input type="text" placeholder="Middle Name" name="middleName" class="form-control">
+							<label id="middleNameError" class="label-error"></label>
+						</div>
+					</div>
+
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-sm-3" for="textinput">Currency</label>
+						<div class="col-sm-4">
+							<input type="radio" name="optradio" id="currencyPHP" value="PHP">&nbsp;&nbsp;PHP
+							<span>&nbsp; &nbsp; </span>
+							<input type="radio" name="optradio" id="currencyUSD" value="USD">&nbsp;&nbsp;USD
+							<label id="currencyError" class="col-sm-12 label-error" style="margin-left:-1em;"></label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3" for="textinput">Payment Provider</label>
+						<div class="col-sm-5">
+							<input type="radio" name="optpayment" id="bdo" value="BDO">&nbsp;&nbsp;BDO
+							<span>&nbsp; &nbsp; </span>
+							<input type="radio" name="optpayment" id="paynamics" value="Paynamics">&nbsp;&nbsp;Paynamics
+							<label id="providerError" class="col-sm-12 label-error" style="margin-left:-1em;"></label>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+
+
+			<div class="line-separator"></div><br><br>
+
+			<a href="success">
+				<button type="submit" class="btn btn-default" style="float: left">
+					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
+				</button>
+			</a>
+
+			<a href="#"><button type="submit" onsubmit="return validateForm()" class="btn" style="background-color: #5cb85c; color: white; float: right">Pay Now <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button></a>
+		</div>
+	</div>
+
+}
+
+
+

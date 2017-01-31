@@ -1,0 +1,62 @@
+.reminderText{
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.menuNavText, .brandText {
+    font-family: "Lato"; 
+}
+
+.remTitle {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.line-separator{
+    height:1px;
+    background:#717171;
+    border-bottom:1px solid #C7C7C7;
+}
+
+.modalTxt {
+    font-size: 14px;
+}
+
+.startBtn:hover {
+    transition-duration: 0.5s;
+    border: 5px solid #1b5e20;
+}
+
+.respText {
+    font-size: 14px;
+    font-family: Lato;
+}
+
+@media(min-width: 768px) {
+    .content-section-a {
+        display: none;
+    }
+    
+    .brandLogo {
+        display: none;
+    }
+    
+    .leftfooter{
+         margin-left: -50px;
+    }
+}
+
+@media(max-width: 768px) {
+    .intro-header {
+        background-color: #3d3d38;
+    }
+    
+    .brandText {
+        display: none;
+    }
+    
+    .contactus {
+        display:none;
+    }
+}
+

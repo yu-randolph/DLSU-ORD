@@ -1,0 +1,90 @@
+﻿
+@{
+	ViewBag.Title = "Verify User Accounts";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<body>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div id="page-content-wrapper">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12" style="margin-bottom:100px">
+								<div class="col-md-12" style="padding-top: 20px">
+									<div id="monitoring">
+										<h3><b>Transaction History</b></h3>
+										<hr>
+										<table class="table table-condensed">
+											<thead>
+												<tr id="listhead">
+													<th>Transaction No.</th>
+													<th>No. of Documents</th>
+													<th>Total Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th>1</th>
+													<th>2</th>
+													<th>Php 400.00</th>
+												</tr>
+												<tr>
+													<th>63</th>
+													<th>5</th>
+													<th>Php 650.00</th>
+												</tr>
+												<tr>
+													<th>67</th>
+													<th>7</th>
+													<th>Php 1000.00</th>
+												</tr>
+												<tr>
+													<th>89</th>
+													<th>4</th>
+													<th>Php 475.00</th>
+												</tr>
+												<tr>
+													<th>92</th>
+													<th>3</th>
+													<th>Php 550.00</th>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+
+		</div>
+		<!-- /.container-fluid -->
+
+	<!-- jQuery -->
+	<script src="~/js/jquery.js"></script>
+
+	<script type="text/javascript">
+		jQuery(function ($) {
+			$(document).ready(function () {
+				$('.status').hide();
+				$('#processing').show();
+				$('#status').change(function () {
+					$('.status').hide();
+					$('#' + $(this).val()).show();
+				})
+			});
+		});
+
+	</script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="~/js/bootstrap.min.js"></script>
+</body>
+

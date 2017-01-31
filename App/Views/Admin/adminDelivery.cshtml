@@ -1,0 +1,70 @@
+﻿
+@{
+	<link href="~/Content/adminDelivery.css" rel="stylesheet" type="text/css" />
+
+	ViewBag.Title = "Maintain Delivery Charges";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+	WebGrid grid = new WebGrid(Model, canPage: false, canSort: false);
+}
+
+<body>
+
+	<div id="page-wrapper">
+
+		<div class="container-fluid">
+
+			<!-- Page Heading -->
+			<div id="page-content-wrapper">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12" style="margin-bottom:100px">
+							<div class="col-md-12" style="padding-top: 20px">
+								<div id="monitoring">
+									<h3><b>Delivery Charges</b></h3>
+									<hr>
+									
+									@grid.GetHtml(tableStyle: "webgrid-table",
+													  headerStyle: "webgrid-header",
+													  footerStyle: "webgrid-footer",
+													  alternatingRowStyle: "webgrid-alternating-row",
+													  columns: new[]
+										{
+											grid.Column("location", "Delivery Area", style:"location"),
+											grid.Column("priceStr", "Initial Charge", style: "price"),
+											grid.Column(format: @<a href="adminDeliveryEdit" title="edit" style="color:#00703c">Edit</a>, style:"edit")
+										})
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container-fluid -->
+
+
+	<!-- jQuery -->
+	<script src="~/js/jquery.js"></script>
+
+	<script type="text/javascript">
+		jQuery(function ($) {
+			$(document).ready(function () {
+				$('.status').hide();
+				$('#processing').show();
+				$('#status').change(function () {
+					$('.status').hide();
+					$('#' + $(this).val()).show();
+				})
+			});
+		});
+
+	</script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="~/js/bootstrap.min.js"></script>
+</body>

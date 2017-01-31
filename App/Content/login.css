@@ -1,0 +1,44 @@
+@media (min-width: 992px) {
+    .cont {
+        margin-top: 152px;
+        margin-bottom: 152px;
+    }
+}
+
+@media (max-width: 991px) {
+    .cont {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    .midcol {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.midcol {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    padding-top: 40px;
+    padding-bottom: 38px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    border:1px solid #C7C7C7;
+}
+
+.formstyle {
+    font-family: "lato", sans-serif;
+}
+
+.line-separator{
+    height:1px;
+    background:#717171;
+    border-bottom:1px solid #C7C7C7;
+}

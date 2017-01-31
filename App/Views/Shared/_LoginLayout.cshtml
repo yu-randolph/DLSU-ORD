@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title | Online Request for Documents</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/Content/normalize.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/login.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/responsive.css">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row cont">
+            <div class="col-md-4"><img src="~/Content/res/left.jpg" class="img-responsive center-block" style="width: 100%;" /></div>
+            <div class="col-md-4 midcol">
+
+                @using (Html.BeginForm("verify", "Account"))
+                {
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            </div>
+                            <input type="email" name="email" class="form-control formstyle" id="email" placeholder="Email Address" style="height: 40px;">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </div>
+                            <input type="Password" name="password" class="form-control formstyle" id="password" placeholder="Password" style="height: 40px;">
+                        </div>
+                    </div>
+                    <center>
+                        <a href="/" class="formstyle">Forgot Password?</a>
+                        @RenderBody()
+                    </center>
+                    <input type="submit" value="Log in" class="btn btn-primary btn-block formstyle" style="background-color: #00703c; margin-bottom: 10px;" />
+                }
+                
+                <div class="line-separator"></div>
+                <a href="register"><input type="button" value ="Don't have an account yet? Register here"class="btn btn-default btn-primary btn-block formstyle" style="background-color: #f5f5f5; color: black; border: 1px solid #bdbdbd; margin-top: 10px;"/></a>
+
+            </div>
+            <div class="col-md-4"><img src="~/Content/res/right.jpg" class="img-responsive center-block" style="width: 100%;" /></div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+.optional {
+    display: inline;
+}
+
+.cont {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.formz {
+    display:flex;
+    align-items: center;
+}
+
+.title{
+    font-size: 15px;
+    font-family: Lato, sans-serif;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    display: inline;
+    padding: 0px;
+}
+.label-error{
+  color: red;
+  font-size: 10px;
+  margin-bottom: -10px;
+  font-family: Lato;
+  font-weight: 500;
+}
+.label-category{
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  text-align: left;
+}
+
+label{
+    text-align: left;
+}
+
+
+legend{
+    background-color: #00703c;
+    color: white;
+    text-align: center;
+}

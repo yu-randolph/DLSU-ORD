@@ -1,0 +1,163 @@
+.mtitle {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Lato;
+}
+
+.stepBtn {
+    width: 200px;
+}
+
+button#shipping:focus, button#pickup:focus{
+	background-color: darkgreen;
+	color: white;
+}
+
+.line-separator{
+    height:1px;
+    background:#717171;
+    border-bottom:1px solid #C7C7C7;
+}
+
+.active {
+    width: 200px;
+}
+
+.thumbnail {
+    width: auto;
+}
+
+.stepHeader {
+    width: 845px;
+}
+
+.btnStep, stepHeader{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    font-size: 15px;
+    font-family: Lato, sans-serif;
+}
+
+.docuGroup{
+    font-size: 18px;
+    font-family: Lato, sans-serif;
+    text-align: center;
+    border-style: solid;
+	border-width: 1px;
+	border-color: #00703c;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+	background-color: #00703c;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	width: 555px;
+	margin-bottom: 7px;
+}
+
+.logo {
+    width: 55px; 
+    height: 55px; 
+    display: inline; 
+    padding: 0px;
+}
+
+.username {
+    color: #424242;
+    margin-left: 5px;
+    padding-right:6px;
+    padding-bottom:5px;
+    padding-left: 3px;
+    padding-top: 5px;
+}
+
+.item-list-cont {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.username:hover {
+    /*border-bottom: 1px solid #424242  !important;*/
+    background-color: #e0e0e0; 
+    border-radius: 5px;
+}
+
+.navbtn {
+    margin-right: 10px;
+    padding-top: 5px;
+}
+
+.navright {
+    margin-top: 15px;
+}
+
+.circ:hover {
+    border: 1px solid #f5f5f5;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        width: 50px;
+        height: 50px;
+        margin-top: 7px;
+    }
+    
+    .title {
+        margin-left:60px;
+        font-size: 12px;
+        width: 200px;
+    }
+    
+    .navleft {
+        width:60px;
+        display: inline-block;
+    }
+    
+    .username {
+        display: none;
+    }
+    
+    .circ {
+        font-size: 12px;
+    }
+    
+    .navright {
+        display: none;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .namebtn {
+        background-color: #757575; 
+        color: white;
+        border-radius: 100%;
+        font-size: 12px;
+    }
+    
+    .namebtn:hover {
+        border: 2px solid #757575;
+    }
+    
+    .item {
+        border: 1px solid #424242 !important;
+        background-color: #ffffff !important;
+    }
+    
+    .proceed-next {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .lbldegree {
+        font-size: 18px;
+    }
+}

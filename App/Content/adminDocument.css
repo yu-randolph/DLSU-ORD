@@ -1,0 +1,69 @@
+
+.name{
+
+font-size:15px;
+width:500px;
+
+}
+
+.regPrice{
+
+font-weight:bold;
+width:150px;
+font-size:15px;
+
+}
+
+.expPrice{
+
+font-weight:bold;
+width:150px;
+font-size:15px;
+
+}
+
+.edit{
+
+font-weight:bold;
+width:150px;
+font-size:15px;
+text-transform:uppercase;
+color:#00703c;
+
+}
+
+.webgrid-table
+    {
+        font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        background-color:white;
+ 
+    }
+    .webgrid-table td, th
+    {
+        
+        padding: 3px 7px 2px;
+    }
+    .webgrid-header
+    {
+        background-color: #00703c;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+    .webgrid-footer
+    {
+    }
+    .webgrid-row-style
+    {
+        padding: 3px 7px 2px;
+    }
+    .webgrid-alternating-row
+    {
+        background-color: #EAF2D3;
+        padding: 3px 7px 2px;
+    }

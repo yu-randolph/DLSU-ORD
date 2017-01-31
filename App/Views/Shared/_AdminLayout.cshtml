@@ -1,0 +1,109 @@
+﻿<!-- FlatFy Theme - Andrea Galanti /-->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en-ph">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@ViewBag.Title | Online Request for Documents</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="">
+
+	<!-- Bootstrap Core CSS -->
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+	<link href="~/Content/admin.css" rel="stylesheet">
+	<link href="~/Content/order.css" rel="stylesheet">
+	<link href="~/Content/sb-admin.css" rel="stylesheet">
+	<link href="~/Content/morris.css" rel="stylesheet">
+	<script src="~/Scripts/modernizr-2.8.3.min.js"></script>
+
+	<!-- Custom Google Web Font -->
+	<link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body id="home">
+	
+
+		<div id="wrapper">
+
+			<!-- Navigation -->
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand">ESH Admin</a>
+				</div>
+				<!-- Top Menu Items -->
+				<ul class="nav navbar-right top-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Administrator <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav side-nav" style="margin-top: 25px;">
+						<li>
+							<a href="adminIndex"><i class="fa fa-fw fa-home"></i> Home</a>
+						</li>
+						<li>
+							<a href="adminDelivery"><i class="fa fa-fw fa-plane"></i> Maintain Delivery Charges</a>
+						</li>
+						<li>
+							<a href="adminDocumentCharges"><i class="fa fa-fw fa-asterisk"></i> Maintain Document Charges</a>
+						</li>
+						<li>
+							<a href="adminUpdateDate"><i class="fa fa-fw fa-calendar"></i> Update Operational Date</a>
+						</li>
+						<li>
+							<a href="adminOrderList"><i class="fa fa-fw fa-shopping-cart"></i> View Orders</a>
+						</li>
+						<li>
+							<a href="adminSearch"><i class="fa fa-fw fa-search"></i> Search Previous Orders</a>
+						</li>
+						<li >
+							<a href="adminMonitor"><i class="fa fa-fw fa-bullhorn"></i> Monitor Document Production</a>
+						</li>
+						<li>
+							<a href="adminVerify"><i class="fa fa-fw fa-user"></i> Verify User Accounts</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+
+			@RenderBody()
+
+			</div>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	</body>
+</html>

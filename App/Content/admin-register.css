@@ -1,0 +1,9 @@
+    .row {
+        position: relative;
+    }
+    #registerbutton {
+        position: absolute;
+        left: 1125px;
+        background-color: #00703c
+    }
+}

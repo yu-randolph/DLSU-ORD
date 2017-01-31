@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_TransactionLayout.cshtml";
+}
+
+@section scripts {
+<script>
+        $('#orderModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var documentTitle = button.data('document') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            var regularPrice = button.data('regularprice')
+            var expressPrice = button.data('expressprice')
+            var docuID = button.data('documentid')
+            var degreeDropdown = document.getElementById("degreeDropdown")
+            var selectedDegree = degreeDropdown.options[degreeDropdown.selectedIndex].text
+            modal.find('.modal-title').text(documentTitle)
+            modal.find('#degreeProfile').text("Academic Profile: " + selectedDegree)
+            if (regularPrice == -1) {
+                modal.find('#regularRate').hide()
+            } else {
+                modal.find('#regularRate').show()
+            }
+            if (expressPrice == -1) {
+                modal.find('#expressRate').hide()
+            } else {
+                modal.find('#expressRate').show()
+            }
+            modal.find('#expressPrice').val(expressPrice)
+            modal.find('#regularPrice').val(regularPrice)
+            modal.find('#docuID').val(docuID)
+            modal.find('#docuName').val(documentTitle)
+        })
+        window.onload = function(){
+            document.getElementById("addCart").onclick = function add(){
+                var docuID = $("#docuID").val()
+                if($('#regRadio').is(':checked')){
+                    var rate = "regular"
+                    var price = $("#regularPrice").val()
+                }else{
+                    var rate = "express"
+                    var price = $("#expressPrice").val()
+                }
+                if($('#brownEnvelope').is(':checked')){
+                    var packaging = "brown envelope"
+                }
+                else if($('#whiteEnvelope').is(':checked')){
+                    var packaging = "white envelope"
+                }else{
+                    var packaging = "none"
+                }
+                var quantity = $("#quantity").val()
+                var degreeDropdown = document.getElementById("degreeDropdown")
+                var degree = degreeDropdown.options[degreeDropdown.selectedIndex].text
+                var docuName = $("#docuName").val()
+                addCart(docuID, docuName, rate, packaging, quantity,degree, price)
+            }
+        }
+</script>
+
+
+}
+
+@section btnStep{
+    <!--btnStep-->
+    <div class="row btnStep" style="margin-top: 7px;">
+        <div class="col-xs-9 stepHeader">
+            <ul class="nav nav-pills nav-justified thumbnail" style="width: 810px;">
+                <li class="active">
+                    <a href="order">
+                        <h4 class="list-group-item-heading stephead">Step 1</h4>
+                        <p class="list-group-item-text">Order Documents</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="@Url.Action("cart","Transaction")">
+                        <h4 class="list-group-item-heading stephead">Step 2</h4>
+                        <p class="list-group-item-text">Edit Cart</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="@Url.Action("info","Transaction")">
+                        <h4 class="list-group-item-heading stephead">Step 3</h4>
+                        <p class="list-group-item-text">Delivery Info</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="@Url.Action("checkout","Transaction")">
+                        <h4 class="list-group-item-heading stephead">Step 4</h4>
+                        <p class="list-group-item-text">Checkout</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="#">
+                        <h4 class="list-group-item-heading stephead">Step 5</h4>
+                        <p class="list-group-item-text">Payment</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.btnStep -->
+}
+
+@section headerScript{
+<script>
+    sessionStorage.docs = @Html.Raw(ViewBag.documentsJSON);
+
+    function display(degree) {
+        if (degree == 'undergraduate') {
+            $('.undergradDoc').show();
+            $('.gradDoc').hide();
+            
+        } else if (degree == 'graduate') {
+            $('.gradDoc').show();
+            $('.undergradDoc').hide();
+        }
+        else {
+            $('.gradDoc').hide();
+            $('.undergradDoc').hide();
+        }
+    }
+</script>
+}
+
+@section body {
+    
+<div style="position: fixed; bottom: 0; right: 0; margin-right: 180px; margin-bottom: 20px;">
+    <button class="btn btn-success" onclick="location.href='@Url.Action("cart","Transaction")'">
+        Proceed to next step <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </button>
+</div>
+
+<div style="position: fixed; bottom: 0; left: 0; margin-left: 260px; margin-bottom: 20px; ">
+    <button class="btn btn-default" disabled>
+        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Go Back
+    </button>
+</div>
+
+<div class="container" style="margin-top: 170px;">
+    <div class="row item-list-cont">
+        <div class="col-md-6">
+            <ul class="event-list">
+                <li class="item" style="height: 50px; margin-bottom: 10px; background-color: #fafafa; border: 1px solid #eeeeee; padding-top: 7px; padding-left: 10px; border-top-right-radius: 0.5em; border-top-left-radius: 0.5em;">
+                    <center>
+                        <span class="lbldegree">Degree</span> &nbsp;&nbsp;
+                        <select id="degreeDropdown" onchange="display(this.value)" class="form-control" style="width: 150px; height: 35px; display: inline-block;">
+                            <option value="">Select a degree</option>
+                            @{
+                                var degrees = ViewBag.degrees;
+                                if (degrees != null)
+                                {
+                                    foreach (var degree in degrees)
+                                    {
+                                        if (degree.level == "Bachelor")
+                                        {
+                                            <option value="undergraduate">@degree.degreeName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="graduate">@degree.degreeName</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+
+                    </center>
+                </li>
+
+                @{
+                    var bDocs  = ViewBag.bachelorsDocuments;
+                    foreach(var doc in bDocs)
+                    {
+                    <li class="item undergradDoc" style="display:none"> 
+                        <!-- Start Item -->
+                        <div class="info" style="padding-top: 20px; padding-left: 25px; padding-right: 0px;">
+                            <h2 class="title" style="font-size: 18px;" value="@doc.docuID">@doc.docuName</h2><br>
+                            <div>
+                                <div class="col-xs-6" style="border-right: 1px solid #bdbdbd;">
+                                    @if(doc.regularPrice!=-1)
+                                    {
+                                    <p class="desc"><span style="font-weight: 500;">Regular Price:</span> &nbsp;@doc.regularPrice</p>
+                                    }
+                                    @if(doc.expressPrice!=-1)
+                                    {                                    
+                                    <p class="desc"><span style="font-weight: 500;">Express Price:</span> &nbsp;@doc.expressPrice</p>
+                                    }
+                                </div>
+                                <div class="col-xs-6">
+                                    <button type ="button" class="btn btn-default order-button" style="width: 150px; height: 35px; margin-left: 15%; margin-top: 5%;" data-toggle="modal" data-target="#orderModal" data-documentid="@doc.docuID" data-document="@doc.docuName" data-regularprice="@doc.regularPrice" data-expressprice="@doc.expressPrice">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li> <!-- End Item -->
+                    }
+                    var mDocs = ViewBag.mastersDocuments;
+                    foreach (var doc in mDocs)
+                    {
+                        <li class="item gradDoc" style="display:none">
+                            <!-- Start Item -->
+                            <div class="info" style="padding-top: 20px; padding-left: 25px; padding-right: 0px;">
+                                <h2 class="title" style="font-size: 18px;">@doc.docuName</h2><br>
+                                <div>
+                                    <div class="col-xs-6" style="border-right: 1px solid #bdbdbd;">
+                                        @if (doc.regularPrice != -1)
+                                        {
+                                            <p class="desc"><span style="font-weight: 500;">Regular Price:</span> &nbsp;@doc.regularPrice</p>
+                                        }
+                                        @if (doc.expressPrice != -1)
+                                        {
+                                            <p class="desc"><span style="font-weight: 500;">Express Price:</span> &nbsp;@doc.expressPrice</p>
+                                        }
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-default order-button" style="width: 150px; height: 35px; margin-left: 15%; margin-top: 5%;" data-toggle="modal" data-target="#orderModal"  data-documentid="@doc.docuID" data-document="@doc.docuName" data-regularprice="@doc.regularPrice" data-expressprice="@doc.expressPrice">Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> <!-- End Item -->
+                    }
+
+                }
+
+           
+            </ul>
+            <!-- Modal -->
+            <div id="orderModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" style="font-weight: bold;">Document Details</h4>
+                            <input type="hidden" id="docuID" value="">
+                            <input type="hidden" id="docuName" value="">
+                        </div>
+                        <div class="modal-body">
+                            <p id="degreeProfile" style="font-weight: bold;">Academic Profile:</p>
+                            <p style="font-weight: bold;">
+                                No. of Copies:
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <input class="form-control" id="quantity" type="number" min="1" max="5" value="1" style="width: 50px">
+                                    </div>
+                                </div>
+                            </p>
+                            <p style="font-weight: bold;">
+                                Delivery Rate:
+                                <label class="radio-inline" id="regularRate"><input type="radio" name="rates" id="regRadio" value="regular" checked="checked">Regular</label>
+                                <input type="hidden" id="regularPrice" value="">
+                                <label class="radio-inline" id="expressRate"><input type="radio" name="rates" id="expRadio" value="express">Express</label>
+                                <input type="hidden" id="expressPrice" value="">
+                            </p>
+
+                            <p style="font-weight: bold;">
+                                Insert Document Into:
+                                <label class="radio-inline"><input type="radio" name="packaging" id="brownEnvelope" value="brown" checked="checked">Brown Envelope</label>
+                                <label class="radio-inline"><input type="radio" name="packaging" id="whiteEnvelope" value="white">White Envelope</label>
+                                <label class="radio-inline"><input type="radio" name="packaging" id="none" value="none">None</label>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="addCart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- END OF MODAL-->
+
+        </div>
+    </div>
+</div>
+
+
+}

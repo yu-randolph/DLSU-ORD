@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "Summary";
+    Layout = "~/Views/Shared/_TransactionLayout.cshtml";
+}
+
+@section scripts {
+    <script>
+        window.onload = populateCheckoutCart;
+        function populateCheckoutCart(){
+            var cart = JSON.parse(sessionStorage.cart);
+            var documentCost = getTotalPrice();
+            var deliveryCost = @ViewBag.delivCharge;
+            var totalCost = parseFloat(documentCost) + parseFloat(deliveryCost);
+            var processing = getProcessing();
+            $('#processingType').text(processing);
+            if(processing == "Express Processing"){
+                var newDate = "@DateTime.Now.AddDays(1).ToString()";
+                $('#dateDue').text(newDate);
+            }
+            $('#checkoutCartTable').empty();
+            $('#documentCost').text('P'+documentCost.toFixed(2));
+            $('#deliveryCost').text('P'+deliveryCost.toFixed(2));
+            $('#totalCost').text('P'+totalCost.toFixed(2));
+            for(var i=0; i<cart.length; i++){
+                $('#checkoutCartTable').append('<tr>'+
+                                            '<td class="col-sm-8 col-md-6">'+
+                                                '<div class="media">'+
+                                                    '<div class="media-body">'+
+                                                        '<h4 class="media-heading" style="color:#00703c;">'+cart[i].docuName+'</h4>'+
+                                                        '<h5 class="media-heading" style="color:#00703c;"> degree: '+cart[i].degree+'</h5>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</td>'+
+                                            '<td class="col-sm-1 col-md-1" style="text-align: center">'+
+                                                '<p>'+cart[i].quantity+'</p>'+
+
+                                            '</td>'+
+                                            '<td class="col-sm-1 col-md-1 text-center"><strong>P'+cart[i].price+'</strong></td>'+
+                                            '<td class="col-sm-1 col-md-1 text-center"><strong>P'+cart[i].price * cart[i].quantity+'</strong></td>'+
+                                            '</tr>');
+            }
+        }
+        function checkOut() {
+            var documentCost = getTotalPrice();
+            var deliveryCost = @ViewBag.delivCharge;
+            var totalCost = parseFloat(documentCost) + parseFloat(deliveryCost);
+            var processing = getProcessing();
+            var dateDue = $('#dateDue').text();
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '@Url.Action("checkoutCart","Transaction")',
+                data: { "jsonCart" : sessionStorage.cart ,
+                    "userID" : @ViewBag.userID,
+                    "price" : totalCost,
+                    "mailingID" : @ViewBag.mailingID,
+                    "deliveryProcessing" : processing,
+                    "dateDue": dateDue},
+                // contentType: 'application/json', <-- no need this.
+            });
+        }
+    </script>
+}
+
+
+@section btnStep{
+    <!--btnStep-->
+    <div class="row btnStep" style="margin-top: 7px;">
+        <div class="col-xs-9 stepHeader">
+            <ul class="nav nav-pills nav-justified thumbnail" style="width: 810px;">
+                <li class="stepBtn">
+                    <a href="order">
+                        <h4 class="list-group-item-heading stephead">Step 1</h4>
+                        <p class="list-group-item-text">Order Documents</p>
+                    </a>
+                </li>                
+                <li class="stepBtn">
+                    <a href="cart">
+                        <h4 class="list-group-item-heading stephead">Step 2</h4>
+                        <p class="list-group-item-text">Edit Cart</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="info">
+                        <h4 class="list-group-item-heading stephead">Step 3</h4>
+                        <p class="list-group-item-text">Delivery Info</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="checkout">
+                        <h4 class="list-group-item-heading stephead">Step 4</h4>
+                        <p class="list-group-item-text">Checkout</p>
+                    </a>
+                </li>
+                <li class="stepBtn">
+                    <a href="#">
+                        <h4 class="list-group-item-heading stephead">Step 5</h4>
+                        <p class="list-group-item-text">Payment</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.btnStep -->
+}
+
+@section body {
+
+    <div class="container item-list-cont" style="margin-top: 170px;">
+    <div class="row">
+        <div class="col-sm-10 col-md-8 stepHeader">
+            <h3 class="text-label">Summary of Transaction</h3>
+            <hr>
+            <br>
+
+            <table class="table table-hover">
+                <thead class="table-header" style="text-align: center">
+                    <tr><td colspan="2">Transaction Details</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Reference No.</strong></td>
+                        <td> 1165129647</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Name</strong></td>
+                        <td> @ViewBag.name </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Current Address </strong></td>
+                        <td> @ViewBag.currentAddress </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contact No.</strong></td>
+                        <td> @ViewBag.contactNumber </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td> @ViewBag.email </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Place of Birth</strong></td>
+                        <td> @ViewBag.placeOfBirth </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <thead class="table-header" style="text-align: center">
+                    <tr><td colspan="2">Delivery Details</td></tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.method == "shipping")
+                    {
+                        <tr>
+                            <td><strong>Mailing Address</strong></td>
+                            <td> @ViewBag.mailingAddress</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delivery Area</strong></td>
+                            <td> @ViewBag.delivArea </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delivery Charge</strong></td>
+                            <td> Php @ViewBag.delivCharge.00 </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processing Type</strong></td>
+                            <td id="processingType"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date Order/s Processed</strong></td>
+                            <td> @ViewBag.dateNow </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date Due to the Courier</strong></td>
+                            <td> @ViewBag.dateCourier </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estimated Delivery Date</strong></td>
+                            <td id="dateDue"> @ViewBag.dueDate </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td><strong>Pickup Area</strong></td>
+                            <td> @ViewBag.delivArea</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processing Type</strong></td>
+                            <td id="processingType"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date Order/s Processed</strong></td>
+                            <td> @ViewBag.dateNow </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estimated Pick-up Date</strong></td>
+                            <td id="dateDue">@DateTime.Now.AddDays(3).ToString()</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <thead class="table-header">
+                    <tr>
+                        <th>Product</th>
+                        <th></th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody id="checkoutCartTable">
+                  
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td width="20%"><h5>Total Delivery Cost<br>Total Document Cost</h5><h3>Total Cost</h3></td>
+
+                        <td class="text-right"><h5><strong id="deliveryCost">P128.00</strong></h5><h5><strong id="documentCost">P722.00</strong></h5><h3 id="totalCost">P728.00</h3></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div>
+                <a href="info">
+                    <button type="submit" class="btn" style="color: white; float: left; background-color: #5cb85c;">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Go Back
+                    </button>
+                </a>
+
+
+                    <button type="submit" onclick="checkOut()" class="btn" style="background-color: #5cb85c; color: white; float: right; margin-left: 10px">
+                        Proceed to Payment <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </button>
+                
+                <span>&nbsp; &nbsp;</span>
+
+            </div>
+
+
+        </div><!--End of row-->
+    </div> <!--End of container-->
+
+
+}
+
